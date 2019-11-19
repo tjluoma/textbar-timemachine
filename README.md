@@ -65,6 +65,10 @@ In the “Refresh” field, select how often (in seconds) it should update.
 
 Turn “Notifications” _off_ unless you want a notification every time it changes (which might be interesting in the beginning but will get old quickly).
 
+It should look something like this:
+
+![TextBar Screenshot](TextBar-Preferences-TimeMachine.png)
+
 Voilà! Now you’re up and running.
 
 ## Questions?
