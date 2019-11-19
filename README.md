@@ -67,7 +67,11 @@ Turn “Notifications” _off_ unless you want a notification every time it chan
 
 It should look something like this:
 
+<<<<<<< HEAD
 ![TextBar Screenshot](TextBar-Preferences-TimeMachine.png)
+=======
+![TextBar Screenshot](textbar-timemachine-screenshot.png)
+>>>>>>> 37e0b9293b5252fafcced43f2ad585320b4ebeca
 
 Voilà! Now you’re up and running.
 
