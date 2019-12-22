@@ -73,7 +73,7 @@ PREVIOUS_DESTINATION_FILE="$HOME/.$NAME.previous-destination.txt"
 	PREVIOUS_DESTINATION_NAME=$(tail -1 "$PREVIOUS_DESTINATION_FILE")
 
 		# both combined for easier reference
-	PREVIOUS_DESTINATION="$PREVIOUS_DESTINATION_ID ($PREVIOUS_DESTINATION_NAME)"
+	PREVIOUS_DESTINATION="$PREVIOUS_DESTINATION_NAME"
 
 	# save the phase that we found 'last time' so we can compare them
 PREVIOUS_PHASE_FILE="$HOME/.${NAME}.previous-phase.txt"
@@ -256,6 +256,15 @@ DESTINATION_ID=$(awk -F'"' '/DestinationID/{print $2}' "$CURRENT_STATUS" )
 	# get the mount point
 DESTINATION_NAME=$(awk -F'"' '/DestinationMountPoint/{print $2}' "$CURRENT_STATUS" )
 
+[[ "$DESTINATION_NAME" == "" ]] \
+&& DESTINATION_NAME=$(tmutil destinationinfo \
+| fgrep -B1 "$DESTINATION_ID" \
+| egrep '^Mount Point '  \
+| sed 's#^Mount Point   : ##g' \
+| sed 's#/Volumes/##' \
+| sed 's#.timemachine/##' \
+| sed 's#._afpovertcp.*##')
+
 	# if the destination ID is not blank, save it and the name to the file
 if [[ "$DESTINATION_ID" != "" ]]
 then
@@ -289,7 +298,7 @@ fi
 if [[ "$PHASE" == "Copying" ]]
 then
 		# this is where we are most of the time when running
-	echo " $PERCENT_OF_BYTES"
+	echo " $PERCENT_OF_BYTES $DESTINATION_NAME"
 	rm -f "$LAST_RUN_LOG"
 
 else
